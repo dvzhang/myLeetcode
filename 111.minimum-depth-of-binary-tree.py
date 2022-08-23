@@ -12,6 +12,7 @@
 #         self.left = left
 #         self.right = right
 from collections import deque
+from logging import _Level
 
 
 class Solution:
@@ -27,16 +28,33 @@ class Solution:
         level, num_nodeOfLevel = 1, 1
         while queue or node:
             node = queue.popleft()
-
-            if ( node.left is None and node.right is None ):
-                return level
-
             num_nodeOfLevel -= 1
-            queue.append(node.left)
-            queue.append(node.right)
 
-            if num_nodeOfLevel == 0:
-                level += 1
-                num_nodeOfLevel = len(queue)
+            if node:
+                if ( node.left is None and node.right is None ):
+                    return level
+
+                queue.append(node.left)
+                queue.append(node.right)
+
+                if num_nodeOfLevel == 0:
+                    level += 1
+                    num_nodeOfLevel = len(queue)
+    def minDepth3(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 
+        queue = deque([root])
+        level, numNodeLevel = 1, 1
+        while queue or node:
+            node = queue.popleft()
+            numNodeLevel -= 1
+            if node:
+                if node.left is None and node.right is None:
+                    return level
+                queue.append(node.left)
+                queue.append(node.right)
+                if numNodeLevel == 0:
+                    level += 1
+                    numNodeLevel = len(queue)
 # @lc code=end
 
