@@ -19,15 +19,53 @@ class Solution:
                 else:
                     res[i][j] = min(res[i-1][j], res[i-1][j-1])+triangle[i][j]
         return min(res[-1]) 
-
-
+    
+    def minimumTotal2(self, triangle: list[list[int]]) -> int:
+        results = []
+        
+        if not triangle:
+            return 0
+        def inList(i, j, triangle =  triangle):
+            if 1 <= i < len(triangle) and 0 <= j < len(triangle[i]):
+                return True
+            return False
+        def dfs(i, j, path, triangle = triangle):
+            if i >= len(triangle)-1:
+                results.append(path+triangle[i][j])
+                return
+            if inList(i+1, j):
+                dfs(i+1, j, path+triangle[i][j])
+            if inList(i+1, j+1):
+                dfs(i+1, j+1, path+triangle[i][j])
+        dfs(0, 0, 0)
+        return min(results)
+    
+    def minimumTotal3(self, triangle: list[list[int]]) -> int:
+        if not triangle:
+            return 0
+        for i in range(1, len(triangle)):
+            for j in range(len(triangle[i])):
+                if j == 0:
+                    triangle[i][j] += triangle[i-1][j]
+                elif j == len(triangle[i]) - 1:
+                    triangle[i][j] += triangle[i-1][j-1]
+                else:
+                    triangle[i][j] += min(triangle[i-1][j], triangle[i-1][j-1])
+        return min(triangle[-1])
+    def minimumTotal4(self, triangle: list[list[int]]) -> int:
+        if not triangle:
+            return 0
+        for i in range(len(triangle)-2, -1, -1):
+            for j in range(len(triangle[i])):
+                triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1])
+        return triangle[0][0]
 # @lc code=end
 import time
 time1 = time.time()
 
 n = [[2],[3,4],[6,5,7],[4,1,8,3]]
 pro = Solution()
-print(pro.minimumTotal(n))
+print(pro.minimumTotal4(n))
 
 time2 = time.time()
 print(time2-time1)
