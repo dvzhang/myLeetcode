@@ -25,6 +25,19 @@ class Solution:
         comb(dict, digits, 0, '', results)
         return results
 
-
+    def letterCombinations2(self, digits: str) -> List[str]:
+        if len(digits) == 0:
+            return []
+        dict = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+        results = []
+        def comb(digits, index, path):
+            if len(path) == len(digits):
+                results.append(path)
+                return
+            characters = dict[digits[index]]
+            for character in characters:
+                comb(digits, index+1, path+character)
+        comb(digits, 0, '')
+        return results
 # @lc code=end
 

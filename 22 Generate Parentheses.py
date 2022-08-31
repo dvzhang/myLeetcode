@@ -51,13 +51,32 @@ class Solution():
             return parens
         return generate('', n, n)
 
+    def solve3(self, n):
+        results = []
+        def generate(path, n, left, right):
+            if len(path) == 2 * n:
+                if path not in results:
+                    results.append(path)
+                return
+            if right >= left:
+                generate(path+"(", n, left+1, right)
+            elif left >= n:
+                generate(path+")", n, left, right+1)
+            else:
+                generate(path+"(", n, left+1, right)
+                generate(path+")", n, left, right+1)
+
+        generate('', n, 0, 0)
+        return results
+
+
 
 time1 = time.time()
 
 
-n = 2
+n = 3
 pro = Solution()
-print(pro.solve(n))
+print(pro.solve3(n))
 
 time2 = time.time()
 print(time2-time1)
