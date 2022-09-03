@@ -36,6 +36,7 @@ class Solution:
         visited[0] = True
         while value1:
             nc += 1
+            # 在硬币数量时nc个时候，会能组合出来哪些数字,并减去已经被看过的那些数字
             for v in value1:
                 for coin in coins:
                     newval = v + coin
@@ -48,8 +49,28 @@ class Solution:
                         value2.append(newval)
             value1, value2 = value2, []
         return -1
-
-
+    def coinChange3(self, coins: list[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        value1 = [0]
+        value2 = []
+        nc = 0
+        visited = [False] * (amount+1)
+        visited[0] = True
+        while value1:
+            nc += 1
+            for v in value1:
+                for coin in coins:
+                    num = coin + v
+                    if num == amount:
+                        return nc
+                    elif num > amount:
+                        continue
+                    elif not visited[num]:
+                        visited[num] = True
+                        value2.append(num)
+            value1, value2 = value2, []
+        return -1
 
 # @lc code=end
 
@@ -60,7 +81,8 @@ time1 = time.time()
 coins = [2,5]
 amount = 11
 pro = Solution()
-print(pro.coinChange2(coins, amount))
+print(pro.coinChange3(coins, amount))
 
 time2 = time.time()
 print(time2-time1)
+
