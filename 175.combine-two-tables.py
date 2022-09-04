@@ -1,7 +1,16 @@
+# 1
 # select p.firstName, p.lastName, a.city, a.state
 # from person p
 # left join address a
 # on p.personId=a.personId
+
+# 2
+# SELECT P.FirstName, P.LastName, A.City, A.State
+# FROM Person P
+# LEFT JOIN (SELECT DISTINCT PersonId, City, State 
+#            FROM Address) A
+# on P.PersonId = A.PersonId;
+
 
 import numpy as np
 import pandas as pd
