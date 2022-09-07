@@ -38,14 +38,26 @@ class Solution:
 
         return [ ['.'*i + "Q" + (n-i-1)*"." for i in result] for result in results]
 
+    def solveNQueens3(self, n: int) -> list[list[str]]:
+        results = []
+        def dfs(path, xySum, xyDiff):
+            p = len(path)
+            if p == n:
+                results.append(path)
+                return
+            for q in range(n):
+                if p+q not in xySum and p-q not in xyDiff and q not in path:
+                    dfs(path+[q], xySum+[p+q], xyDiff+[p-q])
 
+        dfs([],[],[])
+        return [["."*i + "Q" + "."*(n-1-i) for i in range(n)] for result in results]
 # @lc code=end
 
 time1 = time.time()
 
-nums = 5
+nums = 3
 pro = Solution()
-print(pro.solveNQueens2(nums))
+print(pro.solveNQueens3(nums))
 
 time2 = time.time()
 print(time2-time1)
