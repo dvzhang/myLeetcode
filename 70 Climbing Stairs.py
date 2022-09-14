@@ -15,6 +15,7 @@ class Solution():
         if n == 2:
             return 2
         return self.solve(n-1)+self.solve(n-2)
+
     def solve2(self, n):
         results = [0]*(n+1)
         results[0], results[1] = 1, 2
@@ -25,6 +26,16 @@ class Solution():
         return results[n-1]
     
     def solve3(self, n):
+        if n == 1:
+            return 1
+        a, b = 1, 2
+        for i in range(2, n):
+            tmp = b
+            b = a + tmp
+            a = tmp
+        return b
+
+    def solve4(self, n):
         if n == 1:
             return 1
         a, b = 1, 2
