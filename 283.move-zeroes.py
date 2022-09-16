@@ -38,6 +38,14 @@ class Solution:
         for j in range(noneZeroNum, len(nums)):
             nums[j] = 0 
         return nums
+    def moveZeroes4(self, nums: list[int]) -> None:
+        top, b = 0, 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[top] = nums[i]
+                top += 1
+        for i in range(top, len(nums)):
+            nums[i] = 0     
 # @lc code=end
 
 import time
