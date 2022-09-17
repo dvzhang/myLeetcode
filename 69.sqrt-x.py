@@ -4,6 +4,8 @@
 # [69] Sqrt(x)
 #
 import time
+import math
+
 
 # @lc code=start
 class Solution:
@@ -19,16 +21,28 @@ class Solution:
             else:
                 right = mid - 1
         
-        
+    def mySqrt2(self, x: int) -> int:
+        l, r = 0, x
+        while l <= r:
+            m = int((l + r)/2)
+            m2 = math.pow( m, 2 )
+            mp2 = math.pow( m+1, 2 )
+            if m2 <= x and mp2 > x:
+                return m
+            elif m2 > x:
+                r = m-1
+            else:
+                l = m+1
+        return l
 # @lc code=end
 
 
 time1 = time.time()
 
 
-n = 1
+n = 0
 pro = Solution()
-print(pro.mySqrt(n))
+print(pro.mySqrt2(n))
 
 time2 = time.time()
 print(time2-time1)
