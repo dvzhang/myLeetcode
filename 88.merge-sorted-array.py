@@ -30,7 +30,18 @@ class Solution:
             j += 1
             n2 += 1
         return nums1
+    def merge2(self, nums1: list[int], m: int, nums2: list[int], n: int) -> None:
+        a, b, write_index = m-1, n-1, m + n - 1
 
+        while b >= 0:
+            if a >= 0 and A[a] > B[b]:
+                A[write_index] = A[a]
+                a -= 1
+            else:
+                A[write_index] = B[b]
+                b -= 1
+
+            write_index -= 1
         
 # @lc code=end
 
