@@ -26,5 +26,8 @@ tar = 8
 pro = Solution()
 print(pro.searchInsert(n, tar))
 
+
+
+
 time2 = time.time()
 print(time2-time1)
