@@ -5,6 +5,9 @@
 #
 
 # @lc code=start
+from tracemalloc import start
+
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         res = 0
@@ -32,19 +35,20 @@ class Solution:
         return maxLength
     def lengthOfLongestSubstring3(self, s: str) -> int:
         used = {}
-        ans = start = 0
+        res, start = 0, 0
         for i in range(len(s)):
-            if s[i] in used and used[s[i]] <= i:
-                start = used[s[i]] + 1
-            else:
-                ans = max(ans, i-start+1)
+            if s[i] in used:
+                start = max(start, used[s[i]] + 1)
+
+            res = max(res, i - start + 1)
+
             used[s[i]] = i
-        return ans
+        return res
 
 # @lc code=end
 import time
 time1 = time.time()
-n = "abcabcbb"
+n = "tmmzuxt"
 pro = Solution()
 print(pro.lengthOfLongestSubstring3(n))
 
