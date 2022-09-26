@@ -38,6 +38,18 @@ class Solution:
             else:
                 end -= 1
         return ans
+    def maxArea4(self, height: list[int]) -> int:
+        if not height:
+            return 0
+        i, j = 0, len(height)-1
+        ans = 0
+        while i < j:
+            ans = max(ans, (j-i)*min(height[i], height[j]))
+            if height[i] < height[j]:
+                i += 1
+            else:
+                j -= 1
+        return ans
 
 # @lc code=end
 import time
