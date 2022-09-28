@@ -16,6 +16,8 @@ class Solution:
             start, end = i+1, len(nums)-1
             while start < end:
                 sumT = nums[i] + nums[start] + nums[end]
+                if sumT == target:
+                    return sumT
                 if abs(target - sumT) < abs(target - ans):
                     ans = sumT
                 if target - sumT > 0:
@@ -23,7 +25,7 @@ class Solution:
                 else:
                     end -= 1
         return ans
-        
+
 
 
         
