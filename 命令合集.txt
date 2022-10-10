@@ -1,0 +1,22 @@
+查看自己的地址是什么，并设置环境变量
+	goal account list
+	ONE=PQFDGU57I4YEX26LGEMPRRXLG3WF2XNBXWTPJ7I335CCMW7WY7IFBQJUGE
+	echo $ONE
+	. /data/vars.sh
+创建新的合约
+	goal app create --creator $ONE --approval-prog /data/build/approval.teal --clear-prog /data/build/clear.teal --global-byteslices 1 --global-ints 1 --local-byteslices 0 --local-ints 0
+查看信息
+	goal app info --app-id 1
+查看已有合约之中的变量
+	goal app read --global --app-id 1 --guess-format
+	goal app read --local  --guess-format --from $ONE --app-id 17
+执行合约
+	goal app call --app-id 2 -f $ONE --app-arg "str:inc"
+	
+调试
+	goal app call --app-id 7 -f $ONE --app-arg "str:dec" --dryrun-dump -o tx.dr
+	tealdbg debug -d tx.dr --listen  0.0.0.0
+启动本地
+	goal app optin --from $ONE --app-id 1
+发送
+	goal clerk send -f $ONE -t -a 100000

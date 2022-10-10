@@ -59,13 +59,51 @@ class Solution:
             for j in range(len(triangle[i])):
                 triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1])
         return triangle[0][0]
+    def minimumTotal5(self, triangle: list[list[int]]) -> int:
+        for i in range(1, len(triangle)):
+            for j in range(len(triangle[i])):
+                if j == 0:
+                    triangle[i][j] = triangle[i-1][j] + triangle[i][j]
+                elif j == len(triangle[i])-1:
+                    triangle[i][j] = triangle[i-1][j-1] + triangle[i][j]
+                else:
+                    triangle[i][j] = min(triangle[i-1][j], triangle[i-1][j-1]) + triangle[i][j]
+        return min(triangle[-1])
+    def minimumTotal5(self, triangle: list[list[int]]) -> int:
+        def dfs(triangle, i, j):
+            if i == len(triangle) - 1:
+                return triangle[i][j]
+            return min(dfs(triangle, i+1, j), dfs(triangle, i+1, j+1)) + triangle[i][j]
+        return dfs(triangle, 0, 0)
+    def minimumTotal6(self, triangle: list[list[int]]) -> int:
+        def isIn(i, j, triangle):
+            if i < len(triangle) and j < len(triangle[i]):
+                return True
+            return False
+
+        stack = [(0, 0)]
+        results = []
+        while stack:
+            node = stack.pop()
+            if node[0] == len(triangle):
+                results.append()
+            if isIn(node[0]+1, node[1], triangle):
+                stack.append((node[0]+1, node[1]))
+            if isIn(node[0]+1, node[1]+1, triangle):
+                stack.append((node[0]+1, node[1]+1))
+            
+
+
+
+
+
 # @lc code=end
 import time
 time1 = time.time()
 
 n = [[2],[3,4],[6,5,7],[4,1,8,3]]
 pro = Solution()
-print(pro.minimumTotal4(n))
+print(pro.minimumTotal5(n))
 
 time2 = time.time()
 print(time2-time1)
