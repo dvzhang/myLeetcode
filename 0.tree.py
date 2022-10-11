@@ -117,6 +117,33 @@ class Solution:
                 subresult = []
         return ans
 
+    def invertBinaryTree(self, tree):
+        stack = [tree]
+        while stack:
+            node = stack.pop()
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+            node.left, node.right = node.right, node.left
+        return tree     
+
+    def binaryTreeDiameter(self, tree):
+        def longestPath(tree):
+            global ans
+            if not tree:
+                return 0
+            leftDepth = longestPath(tree.left)
+            rightDepth = longestPath(tree.right)
+            ans = max(ans, leftDepth+rightDepth)
+            return max(leftDepth, rightDepth) + 1            
+
+        global ans 
+        ans = 0
+        longestPath(tree)
+        return ans
+
+
 
 time1 = time.time()
 
@@ -137,6 +164,9 @@ print(pro.dfs(root))
 print(pro.bfs(root))
 print(pro.levelOrder(root))
 print(pro.levelOrder2(root))
+
+
+print(pro.binaryTreeDiameter(root))
 
 time2 = time.time()
 print(time2-time1)
