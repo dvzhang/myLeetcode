@@ -1,5 +1,7 @@
+from platform import node
 import time
 from collections import deque
+from turtle import right
 
 
 class TreeNode:
@@ -143,6 +145,50 @@ class Solution:
         longestPath(tree)
         return ans
 
+    def findSuccessor(self, tree, node1):
+        Blue, Gray = 1, 0
+        nextIsAns = False
+        stack = [(Gray, tree)]
+        while stack:
+            tag, node = stack.pop()
+            if not node:
+                continue
+            if tag and nextIsAns:
+                return node.val
+            elif tag and node.val == node1.val:
+                nextIsAns = True
+            elif not tag:
+                stack.append((Gray, node.right))
+                stack.append((Blue, node))
+                stack.append((Gray, node.left))
+    def findSuccessor2(self, tree, node1):
+        if node1.right:
+            nodeParent = node1.right
+            while nodeParent.left:
+                nodeParent = nodeParent.left
+            return nodeParent
+        if node1.parent:
+            if node1.parent.left == node1:
+                return node1.parent
+            if node1.parent.parent:
+                return node1.parent.parent
+        return
+    def heightBalancedBinaryTree(self, tree):
+        # Write your code here.
+        def height(tree):
+            if not tree:
+                return -1
+            leftH = height(tree.left)
+            rightH = height(tree.right)
+            if abs(leftH - rightH) > 1:
+                ans = False
+            return max(leftH, rightH) + 1
+        global ans
+        ans = True
+        height(tree)
+        return ans
+
+
 
 
 time1 = time.time()
@@ -150,9 +196,9 @@ time1 = time.time()
 a = TreeNode(3)
 b = TreeNode(2, left=None, right=a)
 c = TreeNode(-10)
-d = TreeNode(-2, left=None, right=None)
-d = TreeNode(-5, left=c, right=d)
-root = TreeNode(1, left=d, right=b)
+e = TreeNode(-2, left=None, right=None)
+d = TreeNode(-5, left=c, right=e)
+root = TreeNode(1, left=d, right=e)
 
 pro = Solution()
 print(pro.inorderTraversal_notrecursion(root))
@@ -164,9 +210,8 @@ print(pro.dfs(root))
 print(pro.bfs(root))
 print(pro.levelOrder(root))
 print(pro.levelOrder2(root))
-
-
 print(pro.binaryTreeDiameter(root))
+print(pro.findSuccessor(root, e))
 
 time2 = time.time()
 print(time2-time1)
