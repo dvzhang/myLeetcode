@@ -71,7 +71,22 @@ class Solution:
                         value2.append(num)
             value1, value2 = value2, []
         return -1
+    def coinChange4(self, coins: list[int], amount: int) -> int:
+        coins.sort()
+        coinC = [0] + [float("inf") for _ in range(amount)]
 
+        for coin in coins:
+            for i in range(coin, amount+1):
+                coinC[i] = min(coinC[i], 1 + coinC[i-coin])
+        return coinC[-1] if coinC[-1] != float("inf") else -1 
+
+    def coinChange_518(self, coins: list[int], amount: int) -> int:
+        # 第n个数字有多少种组合办法，可以先问第n-1个
+        waysToMakeChange = [1] + [0 for _ in range(amount)]
+        for coin in coins:
+            for change in range(coin, amount+1):
+                waysToMakeChange[change] += waysToMakeChange[change-coin]
+        return waysToMakeChange[-1]
 # @lc code=end
 
 
@@ -82,6 +97,7 @@ coins = [2,5]
 amount = 11
 pro = Solution()
 print(pro.coinChange3(coins, amount))
+print(pro.coinChange4(coins, amount))
 
 time2 = time.time()
 print(time2-time1)
