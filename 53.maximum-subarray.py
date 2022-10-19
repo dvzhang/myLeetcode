@@ -31,6 +31,8 @@ time1 = time.time()
 n = [1, 2, 3, 4, 5, 6, -22, 7, 8, 9, 10]
 pro = Solution()
 print(pro.maxSubArray(n))
+time2 = time.time()
+print(time2-time1)
 print(pro.maxSubArray2(n))
 
 time2 = time.time()
