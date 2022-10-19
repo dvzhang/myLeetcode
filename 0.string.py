@@ -36,6 +36,23 @@ def groupAnagrams2(words):
         ans[key].append(word)
     return list(ans.values())
 
+def isValidNum(num):
+    if len(num) > 1 and num[0] == "0":
+        return False
+    return 0 <= int(num) <= 255
+
+def validIPAddresses(string):
+    # Write your code here.
+    ans = []
+    for i in range(1, len(string)-2):
+        for j in range(i+1, len(string)-1):
+            for k in range(j+1, len(string)):
+                if isValidNum(string[:i]) and isValidNum(string[i:j]) and isValidNum(string[j:k]) and isValidNum(string[k:]):
+                    ans.append("{}.{}.{}.{}".format(string[:i], string[i:j], string[j:k], string[k:]))
+
+    return ans
+
+
 print(longestPalindromicSubstring("noon"))
 time1 = time.time()
 
@@ -45,3 +62,5 @@ print(time2-time1)
 print(groupAnagrams2(["yo", "act", "flop", "tac", "foo", "cat", "oy", "olfp"]))
 time3 = time.time()
 print(time3-time2)
+
+print(validIPAddresses("1921680"))
